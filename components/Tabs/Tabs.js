@@ -8,7 +8,7 @@ class TabLink {
     this.data = this.element.dataset.tab;
     
     // Using the custom data attribute get the associated Item element
-    this.itemEl = document.querySelector(`.tabsItem[data-tab'${this.tabsLink.dataset.tab}']`);
+    this.itemEl = document.querySelector(`.tabs-item[data-tab='${this.data}']`);
     
     // Using the Item element, create a new instance of the TabItem class
     this.tabItem = new TabItem(this.itemEl);
@@ -17,7 +17,7 @@ class TabLink {
     //method on click
     this.element.addEventListener('click', () => this.select());
   };
-  // TabLink Method
+  // TabLink Method //
   select() {
     // Get all of the elements with the tabs-link class
     const links = document.querySelectorAll(".tabs-link");
@@ -32,24 +32,26 @@ class TabLink {
     this.element.classList.add("tabs-link-selected");
     
     // Call the select method on the item associated with this link
-
+    this.tabItem.select();
   }
 }
 
 class TabItem {
   constructor(element) {
     // Assign this.element to the passed in element
-    // this.element;
+    this.element = element;
   }
 
   select() {
     // Select all ".tabs-item" elements from the DOM
-    // const items;
+    const items = document.querySelectorAll(".tabs-item");
 
     // Remove the class "tabs-item-selected" from each element
-    
+    Array.from(links).forEach((element) => {
+      element.classList.remove("tabs-item-selected");
+    });
     // Add a class named "tabs-item-selected" to this element
-    //this.element;
+    this.element.classList.add("tabs-item-selected");
   }
 }
 
@@ -66,11 +68,10 @@ instance of TabLink and pass in each link as a parameter
 
 */
 
-const links = document.querySelectorAll(".tabs-link");
+let links = document.querySelectorAll(".tabs-link"); // Can't have 2 const links
 console.log(links);
 
 links.forEach(function(tabsLink) {
-  console.log(tabsLink);
   new TabLink(tabsLink); /* the return keyword is unnecessary here so I chose not 
   to include it*/
 })
